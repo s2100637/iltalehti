@@ -1,0 +1,19 @@
+document.body.innerHTML = "";
+        document.body.style = "width: 700px; margin: auto;";
+        Object.values(window.App.state.articles)[0].items.body.map((a) => {
+          let dive = document.createElement("div");
+          try {
+            dive.innerText = a.items.map((b) => {
+              return b.text ? b.text : b.items[0].text;
+            });
+          } catch (e) {
+            if (a.type == "subheadline") {
+              dive = document.createElement("H3");
+              dive.innerText = a.text;
+            } else if (a.type == "image") {
+              dive = document.createElement("img");
+              dive.src = a.urls.default;
+            }
+          }
+          document.body.appendChild(dive);
+        });
